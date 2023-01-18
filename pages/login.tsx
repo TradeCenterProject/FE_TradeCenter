@@ -1,9 +1,9 @@
 const LoginPage = () => {
   return (
     <div className="flex h-screen items-center justify-center bg-slate-50 py-20">
-      <div className="flex w-full max-w-md flex-col items-center rounded-lg bg-white py-10 px-8 shadow-lg shadow-slate-100">
+      <div className="flex w-full max-w-md flex-col items-center rounded-lg bg-white py-10 px-9 shadow-[0px_0px_20px_rgba(0,0,0,0.03)] shadow-slate-100">
         <form className="flex w-full flex-col space-y-6">
-          <h2 className="text-center text-xl font-bold">로그인</h2>
+          <h2 className="text-center text-2xl font-bold">로그인</h2>
           <input
             type="email"
             className="rounded-lg bg-slate-50 py-3 px-4 text-sm outline-none placeholder:text-gray-400 "
