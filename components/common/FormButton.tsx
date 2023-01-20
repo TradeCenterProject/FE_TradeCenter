@@ -10,7 +10,7 @@ const FormButton = ({ name, disabled }: FormButtonProps) => {
     <button
       disabled={disabled}
       className={cls(
-        "w-full rounded-lg py-2 font-semibold text-white disabled:bg-gray-200",
+        "w-full rounded-lg py-2 text-[15px] font-semibold text-white disabled:bg-gray-200",
         disabled ? "bg-slate-200" : "bg-primary"
       )}
     >
