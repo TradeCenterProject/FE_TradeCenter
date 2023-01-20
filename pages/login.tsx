@@ -8,8 +8,8 @@ const LoginPage = () => {
       <Card>
         <form className="flex w-full flex-col space-y-6">
           <h2 className="text-center text-2xl font-bold">로그인</h2>
-          <Input type="email" placeholder="이메일" />
-          <Input type="password" placeholder="비밀번호" />
+          <Input required type="email" placeholder="이메일" />
+          <Input required type="password" placeholder="비밀번호" />
           <label className="flex p-1 text-sm leading-4 text-gray-400">
             <input
               type="checkbox"
