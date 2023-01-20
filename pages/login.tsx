@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Card from "../components/common/Card";
 import FormButton from "../components/common/FormButton";
 import Input from "../components/common/Input";
@@ -20,9 +21,11 @@ const LoginPage = () => {
           </label>
           <FormButton name="로그인" disabled={false} />
         </form>
-        <button className="pt-4 text-sm text-gray-400 underline">
-          회원가입
-        </button>
+        <Link href="/join">
+          <button className="pt-4 text-sm text-gray-400 underline">
+            회원가입
+          </button>
+        </Link>
       </Card>
     </div>
   );
