@@ -2,12 +2,12 @@ import { ReactNode } from "react";
 import { useRouter } from "next/router";
 import { cls } from "../../libs/utils";
 
-interface NavMenuProps {
+interface AsideMenu {
   path: string;
   children: ReactNode;
 }
 
-const NavMenu = ({ path, children }: NavMenuProps) => {
+const AsideMenu = ({ path, children }: AsideMenu) => {
   const router = useRouter();
 
   const onMenuClick = () => router.push(path);
@@ -15,8 +15,8 @@ const NavMenu = ({ path, children }: NavMenuProps) => {
   return (
     <button
       className={cls(
-        "font-bold",
-        router.pathname === path ? "text-primary" : ""
+        "w-full px-5 py-2.5 text-left text-sm text-gray-800",
+        router.pathname === path ? "bg-gray-200" : ""
       )}
       onClick={onMenuClick}
     >
@@ -25,4 +25,4 @@ const NavMenu = ({ path, children }: NavMenuProps) => {
   );
 };
 
-export default NavMenu;
+export default AsideMenu;
