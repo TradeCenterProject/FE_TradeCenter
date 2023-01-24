@@ -9,6 +9,7 @@ interface NavMenuProps {
 
 const NavMenu = ({ path, children }: NavMenuProps) => {
   const router = useRouter();
+  const currentPage = router?.pathname?.split("/")[1];
 
   const onMenuClick = () => router.push(path);
 
@@ -16,7 +17,7 @@ const NavMenu = ({ path, children }: NavMenuProps) => {
     <button
       className={cls(
         "font-bold",
-        router.pathname === path ? "text-primary" : ""
+        path.includes(currentPage) ? "text-primary" : ""
       )}
       onClick={onMenuClick}
     >
