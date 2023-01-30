@@ -12,10 +12,10 @@ const Layout = ({ children }: LayoutProps) => {
       <div className="fixed">
         <Header />
       </div>
-      <div className="fixed top-16">
+      <div className="fixed top-[4.5rem]">
         <Aside />
       </div>
-      <div className="fixed left-64 top-16 h-screen w-[calc(100%_-_16rem)] p-5">
+      <div className="fixed left-64 top-[4.5rem] h-screen w-[calc(100%_-_16rem)] bg-slate-50 p-5">
         {children}
       </div>
     </div>

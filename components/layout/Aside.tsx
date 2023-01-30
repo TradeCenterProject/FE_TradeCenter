@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Image from "next/image";
 import AsideMenu from "./AsideMenu";
 
 const menu: AsideMenuType = {
@@ -35,7 +36,13 @@ const Aside = () => {
 
   return (
     <div className="h-screen w-64 bg-gray-100">
-      <div className="px-5 py-4">
+      <div className="flex space-x-2 px-5 py-4">
+        <Image
+          src={`/${currentPage}_icon.svg`}
+          alt="asideIcon"
+          width="17"
+          height="17"
+        />
         <span className="font-bold text-gray-900">
           {menu[currentPage]?.name}
         </span>
