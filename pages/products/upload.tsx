@@ -2,7 +2,7 @@ import Layout from "../../components/layout";
 
 const UploadPage = () => {
   return (
-    <Layout>
+    <Layout title="물품 등록">
       <div>upload</div>
     </Layout>
   );
