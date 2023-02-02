@@ -17,12 +17,12 @@ const SearchBox = () => {
       <form className="space-x-2">
         <input
           type="text"
-          className="w-56 rounded-[3px] border border-gray-400 py-[1.2px] px-[0.5rem] text-sm leading-normal outline-none"
+          className="w-56 rounded-[3px] border border-borderColor py-[1.2px] px-[0.5rem] text-sm leading-normal outline-none"
         />
         <input
           type="submit"
           value="검색"
-          className="cursor-pointer rounded-[3px] border border-gray-400 bg-gray-100 py-[1.6px] px-4 text-sm font-semibold leading-normal text-gray-700 hover:bg-slate-200 active:bg-gray-300"
+          className="cursor-pointer rounded-[3px] border border-borderColor bg-gray-100 py-[1.6px] px-4 text-sm font-semibold leading-normal text-gray-700 hover:bg-slate-200 active:bg-gray-300"
         />
       </form>
     </div>
