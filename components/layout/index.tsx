@@ -17,8 +17,10 @@ const Layout = ({ title, children }: LayoutProps) => {
         <Aside />
       </div>
       <div className="fixed left-64 top-[4.5rem] h-screen w-[calc(100%_-_16rem)] bg-slate-50 py-4 px-6">
-        <h3 className="mb-2 text-lg font-extrabold">{title}</h3>
-        {children}
+        <div className="max-w-7xl">
+          <h3 className="mb-2 text-lg font-extrabold">{title}</h3>
+          {children}
+        </div>
       </div>
     </div>
   );
