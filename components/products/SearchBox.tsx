@@ -1,3 +1,4 @@
+import Button from "../common/Button";
 import ComboBox from "../common/ComboBox";
 
 const searchOptions = [
@@ -19,11 +20,7 @@ const SearchBox = () => {
           type="text"
           className="w-56 rounded-[3px] border border-borderColor py-[1.2px] px-[0.5rem] text-sm leading-normal outline-none"
         />
-        <input
-          type="submit"
-          value="검색"
-          className="cursor-pointer rounded-[3px] border border-borderColor bg-gray-100 py-[1.6px] px-4 text-sm font-semibold leading-normal text-gray-700 hover:bg-slate-200 active:bg-gray-300"
-        />
+        <Button value="검색" />
       </form>
     </div>
   );
