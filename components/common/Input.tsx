@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { cls } from "../../libs/utils";
+import { cls } from "@libs/utils";
 
-import PasswordOpenIcon from "../../public/password_open_icon.svg";
-import PasswordCloseIcon from "../../public/password_close_icon.svg";
+import PasswordOpenIcon from "@public/password_open_icon.svg";
+import PasswordCloseIcon from "@public/password_close_icon.svg";
 
 interface InputProps {
   type: string;

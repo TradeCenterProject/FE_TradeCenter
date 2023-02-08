@@ -1,5 +1,5 @@
-import Button from "../common/Button";
-import ComboBox from "../common/ComboBox";
+import Button from "@components/common/Button";
+import ComboBox from "@components/common/ComboBox";
 
 const searchOptions = [
   "제품 코드",

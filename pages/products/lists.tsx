@@ -1,7 +1,7 @@
-import Button from "../../components/common/Button";
-import Table from "../../components/common/Table";
-import Layout from "../../components/layout";
-import SearchBox from "../../components/products/SearchBox";
+import Button from "@components/common/Button";
+import Table from "@components/common/Table";
+import Layout from "@components/layout";
+import SearchBox from "@components/products/SearchBox";
 
 const productListThead = [
   "제품 코드",
