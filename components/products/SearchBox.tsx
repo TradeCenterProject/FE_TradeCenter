@@ -15,10 +15,10 @@ const SearchBox = () => {
   return (
     <div className="flex gap-2">
       <ComboBox options={searchOptions} />
-      <form className="space-x-2">
+      <form className="flex items-center space-x-2">
         <input
           type="text"
-          className="w-56 rounded-[3px] border border-borderColor py-[1.2px] px-[0.5rem] text-sm leading-normal outline-none"
+          className="w-56 rounded-[3px] border border-borderColor px-[0.5rem] py-[0.1rem] text-sm outline-none"
         />
         <Button value="검색" />
       </form>

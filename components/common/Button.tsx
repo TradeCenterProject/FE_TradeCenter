@@ -9,7 +9,7 @@ const Button = ({ color, value }: ButtonProps) => {
   return (
     <button
       className={cls(
-        "cursor-pointer rounded-[3px] border border-borderColor py-[1.6px] px-4 text-sm font-semibold leading-normal",
+        "cursor-pointer rounded-[3px] border border-borderColor py-[1.6px] px-5 text-sm font-semibold leading-normal",
         color === "green"
           ? "bg-primary text-white active:bg-green-600"
           : color === "red"
