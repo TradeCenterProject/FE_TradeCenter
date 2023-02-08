@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { cls } from "@libs/utils";
+import { cls } from "@utils/styles";
 
 import PasswordOpenIcon from "@public/password_open_icon.svg";
 import PasswordCloseIcon from "@public/password_close_icon.svg";

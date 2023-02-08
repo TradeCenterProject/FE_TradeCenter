@@ -1,4 +1,4 @@
-import { cls } from "@libs/utils";
+import { cls } from "@utils/styles";
 
 interface ButtonProps {
   color?: "green" | "red";

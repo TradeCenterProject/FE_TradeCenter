@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useRouter } from "next/router";
-import { cls } from "@libs/utils";
+import { cls } from "@utils/styles";
 
 interface NavMenuProps {
   path: string;
