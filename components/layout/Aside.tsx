@@ -36,16 +36,15 @@ const Aside = () => {
 
   return (
     <div className="h-screen w-64 bg-gray-100">
-      <div className="flex space-x-2 px-5 py-4">
+      <div className="flex items-center space-x-2 px-5 py-4">
         <Image
           src={`/${currentPage}_icon.svg`}
+          className="mt-[2px]"
           alt="asideIcon"
-          width="17"
+          width="18"
           height="17"
         />
-        <span className="font-bold text-gray-900">
-          {menu[currentPage]?.name}
-        </span>
+        <span className="h-fit font-bold">{menu[currentPage]?.name}</span>
       </div>
       <ul>
         {menu[currentPage]?.submenus?.map((submenu, i) => (
