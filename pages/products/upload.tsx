@@ -1,4 +1,5 @@
 import Button from "@components/common/Button";
+import Table from "@components/common/Table";
 import Layout from "@components/layout";
 
 interface FormLabel {
@@ -44,10 +45,20 @@ const uploadFormData: FormLabel[] = [
   },
 ];
 
+const productListThead = [
+  "제품 코드",
+  "제품 이름",
+  "생산처",
+  "제품 분류",
+  "저장 위치",
+  "단가",
+  "수량",
+];
+
 const UploadPage = () => {
   return (
     <Layout title="물품 등록">
-      <div>
+      <div className="space-y-10">
         <form>
           <div className="mb-2 flex justify-end">
             <Button color="green" value="추가" />
@@ -77,6 +88,13 @@ const UploadPage = () => {
             ))}
           </div>
         </form>
+        <div className="space-y-2">
+          <div className="flex justify-end gap-2">
+            <Button color="green" value="엑셀 등록" />
+            <Button color="green" value="등록하기" />
+          </div>
+          <Table thead={productListThead} />
+        </div>
       </div>
     </Layout>
   );
