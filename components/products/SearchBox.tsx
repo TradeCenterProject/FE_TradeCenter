@@ -7,8 +7,6 @@ const searchOptions = [
   "생산처",
   "제품 분류",
   "저장 위치",
-  "단가",
-  "수량",
 ];
 
 const SearchBox = () => {
