@@ -13,7 +13,7 @@ const productListThead = [
   "수량",
 ];
 
-const ListPage = () => {
+const ProductListPage = () => {
   return (
     <Layout title="재고 목록">
       <div>
@@ -29,4 +29,4 @@ const ListPage = () => {
   );
 };
 
-export default ListPage;
+export default ProductListPage;
