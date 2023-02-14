@@ -55,7 +55,7 @@ const productListThead = [
   "수량",
 ];
 
-const UploadPage = () => {
+const ProductUploadPage = () => {
   return (
     <Layout title="물품 등록">
       <div className="space-y-10">
@@ -100,4 +100,4 @@ const UploadPage = () => {
   );
 };
 
-export default UploadPage;
+export default ProductUploadPage;
