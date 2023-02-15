@@ -13,7 +13,7 @@ const TaskListPage = () => {
     <Layout title="업무 목록">
       <div>
         <div className="mb-2 flex justify-end space-x-4">
-          <div className="space-x-2">
+          <div className="flex items-center space-x-2">
             <Filter
               description={TASK_CATEGORY.description}
               options={TASK_CATEGORY.options}
