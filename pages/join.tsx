@@ -1,6 +1,6 @@
 import Card from "@components/common/Card";
 import FormButton from "@components/common/FormButton";
-import Input from "@components/common/Input";
+import Input from "@components/common/LoginInput";
 
 const JoinPage = () => {
   return (

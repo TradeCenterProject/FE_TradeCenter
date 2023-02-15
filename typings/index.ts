@@ -8,5 +8,6 @@ export type AsideMenuType = {
 export interface FormLabel {
   id: string;
   name: string;
-  isStatic?: boolean;
+  type?: "static" | "select";
+  isWide?: boolean;
 }
