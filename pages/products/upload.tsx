@@ -1,59 +1,7 @@
 import Button from "@components/common/Button";
 import Table from "@components/common/Table";
 import Layout from "@components/layout";
-
-interface FormLabel {
-  id: string;
-  name: string;
-  isStatic?: boolean;
-}
-
-const uploadFormData: FormLabel[] = [
-  {
-    id: "productCode",
-    name: "제품 코드",
-  },
-
-  {
-    id: "productName",
-    name: "제품 이름",
-  },
-  {
-    id: "productCategory",
-    name: "제품 분류",
-  },
-  {
-    id: "price",
-    name: "단가",
-  },
-  {
-    id: "listOrder",
-    name: "No.",
-    isStatic: true,
-  },
-  {
-    id: "productCompany",
-    name: "생산처",
-  },
-  {
-    id: "location",
-    name: "저장 위치",
-  },
-  {
-    id: "quantity",
-    name: "수량",
-  },
-];
-
-const productListThead = [
-  "제품 코드",
-  "제품 이름",
-  "생산처",
-  "제품 분류",
-  "저장 위치",
-  "단가",
-  "수량",
-];
+import { PRODUCT_LIST_THEADS, UPLOAD_FORM_LABELS } from "@constants/products";
 
 const ProductUploadPage = () => {
   return (
@@ -64,7 +12,7 @@ const ProductUploadPage = () => {
             <Button color="green" value="추가" />
           </div>
           <div className="grid grid-flow-col grid-cols-2 grid-rows-[auto_auto_auto_auto] overflow-hidden rounded-md border border-borderColor text-sm">
-            {uploadFormData.map((data) => (
+            {UPLOAD_FORM_LABELS.map((data) => (
               <div
                 key={data.id}
                 className="flex items-center border-b border-borderColor last:border-none [&:nth-child(4)]:border-none"
@@ -93,7 +41,7 @@ const ProductUploadPage = () => {
             <Button color="green" value="엑셀 등록" />
             <Button color="green" value="등록하기" />
           </div>
-          <Table thead={productListThead} />
+          <Table thead={PRODUCT_LIST_THEADS} />
         </div>
       </div>
     </Layout>

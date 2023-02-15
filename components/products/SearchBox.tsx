@@ -1,18 +1,11 @@
 import Button from "@components/common/Button";
 import ComboBox from "@components/common/ComboBox";
-
-const searchOptions = [
-  "제품 코드",
-  "제품 이름",
-  "생산처",
-  "제품 분류",
-  "저장 위치",
-];
+import { SEARCH_OPTIONS } from "@constants/products";
 
 const SearchBox = () => {
   return (
     <div className="flex gap-2">
-      <ComboBox options={searchOptions} />
+      <ComboBox options={SEARCH_OPTIONS} />
       <form className="flex items-center space-x-2">
         <input
           type="text"
