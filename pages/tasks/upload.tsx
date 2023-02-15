@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Button from "@components/common/Button";
 import ComboBox from "@components/common/ComboBox";
 import Form from "@components/common/Form";
@@ -8,6 +10,8 @@ import Layout from "@components/layout";
 import { TASK_LIST_THEADS, TASK_CATEGORY } from "@constants/tasks";
 
 const TaskUploadPage = () => {
+  const [checkedIds, setCheckedIds] = useState<Set<number>>(new Set());
+
   return (
     <Layout title="업무 등록">
       <div className="mt-6 space-y-8">
@@ -33,7 +37,12 @@ const TaskUploadPage = () => {
             <Button color="red" value="선택 삭제" />
             <Button color="green" value="추가" />
           </div>
-          <Table thead={TASK_LIST_THEADS} />
+          <Table
+            checkable
+            thead={TASK_LIST_THEADS}
+            checkedIds={checkedIds}
+            setCheckedIds={setCheckedIds}
+          />
         </div>
       </div>
     </Layout>
