@@ -3,8 +3,8 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 interface TableProps {
   checkable?: boolean;
   thead: string[];
-  checkedIds: Set<number>;
-  setCheckedIds: Dispatch<SetStateAction<Set<number>>>;
+  checkedIds?: Set<number>;
+  setCheckedIds?: Dispatch<SetStateAction<Set<number>>>;
 }
 
 const mockArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -13,6 +13,7 @@ const Table = ({ checkable, thead, checkedIds, setCheckedIds }: TableProps) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
 
   const onToggleCheckAll = () => {
+    if (!setCheckedIds) return;
     const newSet = new Set<number>(mockArray);
 
     if (isCheckedAll) newSet.clear();
@@ -22,6 +23,7 @@ const Table = ({ checkable, thead, checkedIds, setCheckedIds }: TableProps) => {
   };
 
   const onToggleCheck = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (!checkedIds || !setCheckedIds) return;
     const id = Number(target.id);
     const isChecked = checkedIds.has(id);
     const newSet = new Set<number>(checkedIds);
@@ -64,7 +66,7 @@ const Table = ({ checkable, thead, checkedIds, setCheckedIds }: TableProps) => {
                   <input
                     id={i.toString()}
                     type="checkbox"
-                    checked={checkedIds.has(i)}
+                    checked={checkedIds?.has(i)}
                     onChange={onToggleCheck}
                   />
                 </td>
