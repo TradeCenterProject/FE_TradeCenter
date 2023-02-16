@@ -10,7 +10,7 @@ const ProductUploadPage = () => {
   return (
     <Layout title="물품 등록">
       <div className="space-y-10">
-        <Form submittable rowCount={4}>
+        <Form id="productUpload" submittable rowCount={4}>
           <FormItem id="productCode" label="제품 코드">
             <FormInput id="productCode" />
           </FormItem>

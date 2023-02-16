@@ -3,11 +3,13 @@ import { cls } from "@utils/styles";
 interface ButtonProps {
   color?: "green" | "red";
   value: string;
+  form?: string;
 }
 
-const Button = ({ color, value }: ButtonProps) => {
+const Button = ({ color, value, form }: ButtonProps) => {
   return (
     <button
+      form={form}
       className={cls(
         "cursor-pointer rounded-[3px] border border-borderColor py-[1.6px] px-5 text-[0.8rem] font-semibold leading-normal",
         color === "green"
