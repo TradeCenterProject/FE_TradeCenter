@@ -14,6 +14,12 @@ interface GridRowsType {
   [key: number]: string;
 }
 
+const gridRowStyles: GridRowsType = {
+  0: "",
+  3: "grid-rows-[repeat(3,_auto)]",
+  4: "grid-rows-[repeat(4,_auto)]",
+};
+
 const gridBorderStyles: GridRowsType = {
   0: "",
   3: "[&>div:nth-child(3)]:border-none",
@@ -31,8 +37,7 @@ const Form = ({ id, rowCount, submittable, children, onSubmit }: FormProps) => {
       <div
         className={cls(
           `grid grid-flow-col grid-cols-2 overflow-hidden rounded-md border border-borderColor text-sm`,
-          `grid-rows-[repeat(${rowCount ?? 0},_auto)]`,
-          // `[&>div:nth-child(${rowCount ?? 0})]:border-none`,
+          gridRowStyles[rowCount],
           gridBorderStyles[rowCount]
         )}
       >
