@@ -11,7 +11,7 @@ const Aside = () => {
     <div className="h-screen w-64 bg-gray-100">
       <div className="flex items-center space-x-2 px-5 py-4">
         <Image
-          src={`/${currentPage}_icon.svg`}
+          src={`/images/${currentPage}_icon.svg`}
           className="mt-[2px]"
           alt="asideIcon"
           width="18"

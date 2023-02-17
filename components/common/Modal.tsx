@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import CloseIcon from "@public/close_icon.svg";
+import CloseIcon from "@public/images/close_icon.svg";
 
 interface ModalProps {
   children: ReactNode;
