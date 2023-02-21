@@ -1,4 +1,4 @@
-import { UserJoinFormType } from "@typings/account";
+import { UserFormType } from "@typings/account";
 import { ERROR_MESSAGE } from "@constants/account";
 
 const regExp = {
@@ -7,7 +7,7 @@ const regExp = {
   password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,20}$/,
 };
 
-export default function validate(values: UserJoinFormType) {
+export default function validate(values: UserFormType) {
   const { email, password, passwordCheck } = values;
   const errors = {
     email: "",

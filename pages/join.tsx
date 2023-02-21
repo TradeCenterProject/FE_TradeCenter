@@ -1,24 +1,47 @@
+import { useCallback, useEffect, useState } from "react";
+
 import Card from "@components/common/Card";
 import FormButton from "@components/common/FormButton";
 import Input from "@components/common/LoginInput";
 import useForm from "@hooks/useForm";
 
 const JoinPage = () => {
-  const { errors, isSubmitable, handleChange, handleSubmit } = useForm({
-    initialValues: {
-      email: "",
-      password: "",
-      passwordCheck: "",
-      companyCode: "",
-    },
+  const { values, errors, handleChange, handleSubmit } = useForm({
+    email: "",
+    password: "",
+    passwordCheck: "",
+    companyCode: "",
   });
+  const [isSubmitable, setIsSubmitable] = useState(false);
+
+  const doSignUp = () => {
+    // sign up code
+    console.log("!");
+  };
+
+  const checkForm = useCallback(() => {
+    if (!errors) return false;
+
+    const invalidValues = Object.keys(values).filter((name) => {
+      return (
+        errors[name] !== undefined &&
+        (values[name] === "" || errors[name] !== "")
+      );
+    });
+
+    setIsSubmitable(!Boolean(invalidValues.length));
+  }, [errors, values]);
+
+  useEffect(() => {
+    checkForm();
+  }, [values, checkForm]);
 
   return (
     <div className="flex h-screen items-center justify-center bg-slate-50 py-20">
       <Card>
         <form
           className="flex w-full flex-col space-y-6"
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleSubmit(e, doSignUp)}
         >
           <h2 className="text-center text-2xl font-bold">회원가입</h2>
           <Input
