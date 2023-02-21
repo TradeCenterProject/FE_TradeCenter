@@ -4,7 +4,7 @@ import Input from "@components/common/LoginInput";
 import useForm from "@hooks/useForm";
 
 const JoinPage = () => {
-  const { errors, handleChange } = useForm({
+  const { errors, isSubmitable, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: "",
       password: "",
@@ -16,7 +16,10 @@ const JoinPage = () => {
   return (
     <div className="flex h-screen items-center justify-center bg-slate-50 py-20">
       <Card>
-        <form className="flex w-full flex-col space-y-6">
+        <form
+          className="flex w-full flex-col space-y-6"
+          onSubmit={handleSubmit}
+        >
           <h2 className="text-center text-2xl font-bold">회원가입</h2>
           <Input
             required
@@ -48,7 +51,7 @@ const JoinPage = () => {
             placeholder="회사 코드 (선택)"
             onChangeHandler={handleChange}
           />
-          <FormButton name="회원가입" disabled={false} />
+          <FormButton name="회원가입" disabled={!isSubmitable} />
         </form>
       </Card>
     </div>

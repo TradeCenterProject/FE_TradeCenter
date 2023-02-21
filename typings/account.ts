@@ -3,4 +3,5 @@ export interface UserJoinFormType {
   password: string;
   passwordCheck: string;
   companyCode?: string;
+  [key: string]: string | undefined;
 }

@@ -5,7 +5,6 @@ import PasswordOpenIcon from "@public/images/password_open_icon.svg";
 import PasswordCloseIcon from "@public/images/password_close_icon.svg";
 
 interface InputProps {
-  name: string;
   type: string;
   error?: string;
   required?: boolean;
@@ -17,7 +16,6 @@ const Input = ({
   type: initialType,
   error,
   required,
-  value,
   onChangeHandler,
   ...rest
 }: InputProps) => {
@@ -37,7 +35,6 @@ const Input = ({
     <div className="relative flex flex-col">
       <input
         type={type}
-        value={value}
         {...rest}
         className={cls(
           "w-full rounded-lg border-2 border-slate-50 bg-slate-50 py-[0.7rem] px-4 text-sm outline-none placeholder:text-gray-400 focus:border-gray-500",
