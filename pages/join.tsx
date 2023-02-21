@@ -49,6 +49,7 @@ const JoinPage = () => {
             name="email"
             type="email"
             placeholder="이메일"
+            value={values.email}
             onChangeHandler={handleChange}
             error={errors?.email}
           />
@@ -57,6 +58,7 @@ const JoinPage = () => {
             name="password"
             type="password"
             placeholder="비밀번호"
+            value={values.password}
             onChangeHandler={handleChange}
             error={errors?.password}
           />
@@ -65,6 +67,7 @@ const JoinPage = () => {
             name="passwordCheck"
             type="password"
             placeholder="비밀번호 확인"
+            value={values.passwordCheck || ""}
             onChangeHandler={handleChange}
             error={errors?.passwordCheck}
           />
@@ -72,6 +75,7 @@ const JoinPage = () => {
             name="companyCode"
             type="text"
             placeholder="회사 코드 (선택)"
+            value={values.companyCode || ""}
             onChangeHandler={handleChange}
           />
           <FormButton name="회원가입" disabled={!isSubmitable} />

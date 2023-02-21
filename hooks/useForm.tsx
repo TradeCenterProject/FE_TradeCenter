@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import validate from "@utils/account";
@@ -25,6 +25,10 @@ const useForm = (initialValues: UserFormType) => {
     e.preventDefault();
     onValid();
   };
+
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
 
   return {
     values,
