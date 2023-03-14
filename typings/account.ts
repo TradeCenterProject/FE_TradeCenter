@@ -1,7 +1,11 @@
 export interface UserFormType {
   email: string;
+  name: string;
   password: string;
   passwordCheck?: string;
   companyCode?: string;
-  [key: string]: string | undefined;
+  companyName?: string;
 }
+
+export type Position = "사장" | "직원" | string;
+export type FormType = "account" | "company";
