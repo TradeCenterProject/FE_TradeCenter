@@ -1,12 +1,37 @@
+import { ChangeEvent, useRef } from "react";
+
+import readXlsxFile from "read-excel-file";
+
 import Button from "@components/common/Button";
 import Form from "@components/common/Form";
 import FormInput from "@components/common/FormInput";
 import FormItem from "@components/common/FormItem";
 import Table from "@components/common/Table";
 import Layout from "@components/layout";
-import { PRODUCT_LIST_THEADS } from "@constants/products";
+import { PRODUCT_LIST_INFO, PRODUCT_LIST_THEADS } from "@constants/products";
 
-const ProductUploadPage = () => {
+interface MapType {
+  [key: string]: string;
+}
+
+const ProductUploadPage = (e: MouseEvent) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleClickExcelUpload = () =>
+    inputRef.current && inputRef.current.click();
+
+  const parseExcelFile = async ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const fileData = target.files && target.files[0];
+    if (!fileData) return;
+
+    const ProductInfoEntries = Object.entries(PRODUCT_LIST_INFO);
+    const map: MapType = {};
+
+    ProductInfoEntries.map(([key, value]) => (map[value] = key));
+
+    const { rows } = await readXlsxFile(fileData, { map });
+  };
+
   return (
     <Layout title="물품 등록">
       <div className="space-y-10">
@@ -38,7 +63,18 @@ const ProductUploadPage = () => {
         </Form>
         <div className="space-y-2">
           <div className="flex justify-end gap-2">
-            <Button color="green" value="엑셀 등록" />
+            <input
+              type="file"
+              accept=".xlsx"
+              ref={inputRef}
+              onChange={parseExcelFile}
+              className="hidden"
+            />
+            <Button
+              color="green"
+              value="엑셀 등록"
+              handleClick={handleClickExcelUpload}
+            />
             <Button color="green" value="등록하기" />
           </div>
           <Table thead={PRODUCT_LIST_THEADS} />

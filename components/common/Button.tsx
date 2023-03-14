@@ -4,9 +4,10 @@ interface ButtonProps {
   color?: "green" | "red";
   value: string;
   form?: string;
+  handleClick?: () => void;
 }
 
-const Button = ({ color, value, form }: ButtonProps) => {
+const Button = ({ color, value, form, handleClick }: ButtonProps) => {
   return (
     <button
       form={form}
@@ -18,6 +19,7 @@ const Button = ({ color, value, form }: ButtonProps) => {
           ? "bg-[#D9736F] text-white active:bg-red-600"
           : "bg-gray-100 text-gray-700 active:bg-gray-300"
       )}
+      onClick={handleClick}
     >
       {value}
     </button>
