@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import usersAPI from "@api/users";
@@ -20,6 +21,7 @@ const JoinFormContent = () => {
   });
   const { errors, isValid, isSubmitting } = formState;
   const fields = watch();
+  const router = useRouter();
 
   const goAccountForm = () => setFormType("account");
 
@@ -37,6 +39,10 @@ const JoinFormContent = () => {
 
   const doSignUp = async (values: UserFormType) => {
     if (isSubmitting) return;
+
+    const result = await usersAPI.signUp(values);
+
+    if (result && result.ok) router.replace("/login");
   };
 
   return (

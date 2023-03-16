@@ -31,7 +31,7 @@ const CompanyFormContent = ({
       {position === "boss" ? (
         <Input
           type="text"
-          placeholder="회사명 *"
+          placeholder="회사명 (띄어쓰기 없이) *"
           value={companyName || ""}
           register={register("companyName", {
             required: true,

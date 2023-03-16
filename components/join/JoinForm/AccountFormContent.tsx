@@ -8,7 +8,7 @@ import type {
 import Input from "@components/common/LoginInput";
 import Tab from "@components/join/Tab";
 
-import { ERROR_MESSAGE } from "@constants/account";
+import { ERROR_MESSAGE, regExp } from "@constants/account";
 import { Position, UserFormType } from "@typings/account";
 
 interface AccountFormContentProps {
@@ -19,12 +19,6 @@ interface AccountFormContentProps {
   reset: UseFormReset<UserFormType>;
   setPosition: Dispatch<SetStateAction<string>>;
 }
-
-const regExp = {
-  email:
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-  password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,20}$/,
-};
 
 const AccountFormContent = ({
   fields,
