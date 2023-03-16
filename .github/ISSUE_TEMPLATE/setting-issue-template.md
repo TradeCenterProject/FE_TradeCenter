@@ -1,5 +1,5 @@
 ---
-name: Setting issue template
+name: SETTING issue template
 about: setting issue template
 title: "[SETTING]"
 labels: ''
