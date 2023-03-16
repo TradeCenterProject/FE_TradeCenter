@@ -1,5 +1,5 @@
 import api from "@api/instance";
-import { ERROR_MESSAGE } from "@constants/account";
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "@constants/account";
 import { UserFormType } from "@typings/account";
 
 const url = "/users";
@@ -17,25 +17,22 @@ const usersAPI = {
 
     return await api
       .post(`${url}/validation`, body)
-      .then(({ status }) => {
-        switch (status) {
-          case 200:
-            return { ok: true };
-        }
+      .then(() => {
+        return { ok: true };
       })
-      .catch(
-        ({
+      .catch((err) => {
+        const {
           response: {
             data: { message },
           },
-        }) => {
-          switch (message) {
-            case "ALREADY EXIST EMAIL":
-              alert(ERROR_MESSAGE.JOIN.ALREADY_EXIST_EMAIL);
-              return { ok: false };
-          }
+        } = err;
+
+        switch (message) {
+          case "ALREADY EXIST EMAIL":
+            alert(ERROR_MESSAGE.JOIN.ALREADY_EXIST_EMAIL);
+            return { ok: false };
         }
-      );
+      });
   },
   signUp: async (values: UserFormType) => {
     const { email, name, password, companyCode, companyName } = values;
@@ -50,26 +47,27 @@ const usersAPI = {
     return await api
       .post(`${url}/signup`, body)
       .then(() => {
+        alert(SUCCESS_MESSAGE.JOIN);
         return { ok: true };
       })
-      .catch(
-        ({
+      .catch((err) => {
+        const {
           response: {
             data: { message },
           },
-        }) => {
-          switch (message) {
-            case "NOT EXIST COMPANY CODE":
-              return alert(ERROR_MESSAGE.JOIN.NOT_EXIST_COMPANY_CODE);
-            case "ALREADY EXIST COMPANY NAME":
-              return alert(ERROR_MESSAGE.JOIN.ALREADY_EXIST_COMPANY_NAME);
-            case "EMPTY LETTER EXIST":
-              return alert(ERROR_MESSAGE.JOIN.INVALID_COMPANY_NAME);
-          }
+        } = err;
 
-          return { ok: false };
+        switch (message) {
+          case "NOT EXIST COMPANY CODE":
+            return alert(ERROR_MESSAGE.JOIN.NOT_EXIST_COMPANY_CODE);
+          case "ALREADY EXIST COMPANY NAME":
+            return alert(ERROR_MESSAGE.JOIN.ALREADY_EXIST_COMPANY_NAME);
+          case "EMPTY LETTER EXIST":
+            return alert(ERROR_MESSAGE.JOIN.INVALID_COMPANY_NAME);
         }
-      );
+
+        return { ok: false };
+      });
   },
 };
 
