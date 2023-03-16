@@ -22,7 +22,8 @@
       "@public/*": ["public/*"],
       "@styles/*": ["styles/*"],
       "@constants/*": ["constants/*"],
-      "@typings/*": ["typings/*"]
+      "@typings/*": ["typings/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
