@@ -54,7 +54,7 @@ const AccountFormContent = ({
           required: true,
           pattern: {
             value: regExp.email,
-            message: ERROR_MESSAGE.EMAIL,
+            message: ERROR_MESSAGE.JOIN.INVALID_EMAIL,
           },
         })}
         error={errors?.email?.message}
@@ -76,7 +76,7 @@ const AccountFormContent = ({
           required: true,
           pattern: {
             value: regExp.password,
-            message: ERROR_MESSAGE.PASSWORD,
+            message: ERROR_MESSAGE.JOIN.INVALID_PASSWORD,
           },
         })}
         error={errors?.password?.message}
@@ -88,7 +88,8 @@ const AccountFormContent = ({
         register={register("passwordCheck", {
           required: true,
           validate: (value, formValues) =>
-            value === formValues.password || ERROR_MESSAGE.PASSWORD_CHECK,
+            value === formValues.password ||
+            ERROR_MESSAGE.JOIN.INVALID_PASSWORD_CHECK,
         })}
         error={errors?.passwordCheck?.message}
       />

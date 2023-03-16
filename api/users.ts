@@ -31,7 +31,7 @@ const usersAPI = {
         }) => {
           switch (message) {
             case "ALREADY EXIST EMAIL":
-              alert(ERROR_MESSAGE.ALREADY_EXIST_EMAIL);
+              alert(ERROR_MESSAGE.JOIN.ALREADY_EXIST_EMAIL);
               return { ok: false };
           }
         }
@@ -60,11 +60,11 @@ const usersAPI = {
         }) => {
           switch (message) {
             case "NOT EXIST COMPANY CODE":
-              return alert(ERROR_MESSAGE.NOT_EXIST_COMPANY_CODE);
+              return alert(ERROR_MESSAGE.JOIN.NOT_EXIST_COMPANY_CODE);
             case "ALREADY EXIST COMPANY NAME":
-              return alert(ERROR_MESSAGE.ALREADY_EXIST_COMPANY_NAME);
+              return alert(ERROR_MESSAGE.JOIN.ALREADY_EXIST_COMPANY_NAME);
             case "EMPTY LETTER EXIST":
-              return alert(ERROR_MESSAGE.INVALID_COMPANY_NAME);
+              return alert(ERROR_MESSAGE.JOIN.INVALID_COMPANY_NAME);
           }
 
           return { ok: false };
