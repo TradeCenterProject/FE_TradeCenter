@@ -31,7 +31,9 @@ const AccountFormContent = ({
   const { email, name, password, passwordCheck } = fields;
 
   const changeTab = (e: MouseEvent<HTMLButtonElement>) => {
-    setPosition(e.currentTarget.id);
+    const newPosition = e.currentTarget.id;
+
+    setPosition(newPosition);
     reset();
   };
 
