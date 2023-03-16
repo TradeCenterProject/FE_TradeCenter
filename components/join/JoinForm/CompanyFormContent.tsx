@@ -27,7 +27,9 @@ const CompanyFormContent = ({
       <button className="absolute top-[-10px] left-[-10px]" onClick={goBack}>
         <BackArrowIcon />
       </button>
-      <h2 className="text-center text-2xl font-bold">회사 등록</h2>
+      <h2 className="text-center text-2xl font-bold">
+        {position === "boss" ? "회사 등록" : "회사 코드 입력"}
+      </h2>
       {position === "boss" ? (
         <Input
           type="text"
