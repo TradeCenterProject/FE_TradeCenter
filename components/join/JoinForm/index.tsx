@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormType, Position, UserFormType } from "@typings/account";
 
+import usersAPI from "@api/users";
+import { FormType, Position, UserFormType } from "@typings/account";
 import AccountFormContent from "./AccountFormContent";
 import FormButton from "@components/common/FormButton";
 import CompanyFormContent from "./CompanyFormContent";
-import usersAPI from "@api/users";
 
 const JoinFormContent = () => {
   const [position, setPosition] = useState<Position>("boss");
@@ -25,15 +25,17 @@ const JoinFormContent = () => {
 
   const onValid = async (values: UserFormType) => {
     if (formType === "account") {
-      const { ok } = await usersAPI.validateAccount(values);
+      const result = await usersAPI.validateAccount(values);
 
-      if (ok) return setFormType("company");
+      if (result && result.ok) return setFormType("company");
+
+      return null;
     }
 
     doSignUp(values);
   };
 
-  const doSignUp = (values: UserFormType) => {
+  const doSignUp = async (values: UserFormType) => {
     if (isSubmitting) return;
   };
 

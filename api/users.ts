@@ -15,17 +15,21 @@ const usersAPI = {
       companyName,
     };
 
-    return await api.post(`${url}/validation`, body).then(({ status }) => {
-      switch (status) {
-        case 200:
-          return { ok: true };
-        case 400:
-          alert(ERROR_MESSAGE.DUPLICATE_EMAIL);
-          return { ok: false };
-        default:
-          return { ok: false };
-      }
-    });
+    return await api
+      .post(`${url}/validation`, body)
+      .then(({ status }) => {
+        switch (status) {
+          case 200:
+            return { ok: true };
+        }
+      })
+      .catch(({ response: { status } }) => {
+        switch (status) {
+          case 400:
+            alert(ERROR_MESSAGE.DUPLICATE_EMAIL);
+            return { ok: false };
+        }
+      });
   },
 };
 
