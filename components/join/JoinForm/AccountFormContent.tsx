@@ -14,7 +14,7 @@ import { Position, UserFormType } from "@typings/account";
 interface AccountFormContentProps {
   fields: UserFormType;
   errors: FieldErrors<UserFormType>;
-  position: string;
+  position: Position;
   register: UseFormRegister<UserFormType>;
   reset: UseFormReset<UserFormType>;
   setPosition: Dispatch<SetStateAction<string>>;
@@ -34,7 +34,7 @@ const AccountFormContent = ({
   reset,
   setPosition,
 }: AccountFormContentProps) => {
-  const { email, name, password, passwordCheck, companyCode } = fields;
+  const { email, name, password, passwordCheck } = fields;
 
   const changeTab = (e: MouseEvent<HTMLButtonElement>) => {
     setPosition(e.currentTarget.id);
@@ -98,17 +98,6 @@ const AccountFormContent = ({
         })}
         error={errors?.passwordCheck?.message}
       />
-      {position == "employee" && (
-        <Input
-          type="text"
-          placeholder="회사 코드 *"
-          value={companyCode || ""}
-          register={register("companyCode", {
-            required: true,
-          })}
-          error={errors?.companyCode?.message}
-        />
-      )}
     </div>
   );
 };

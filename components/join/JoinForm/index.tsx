@@ -23,8 +23,11 @@ const JoinFormContent = () => {
   const goAccountForm = () => setFormType("account");
 
   const onValid = () => {
-    if (position === "boss" && formType === "account")
+    if (formType === "account") {
+      // account validation request
+
       return setFormType("company");
+    }
 
     doSignUp();
   };
@@ -51,14 +54,13 @@ const JoinFormContent = () => {
         <CompanyFormContent
           fields={fields}
           errors={errors}
+          position={position}
           register={register}
           goBack={goAccountForm}
         />
       )}
       <FormButton
-        name={
-          position === "boss" && formType === "account" ? "다음" : "회원 가입"
-        }
+        name={formType === "account" ? "다음" : "회원 가입"}
         disabled={!isValid}
       />
     </form>
