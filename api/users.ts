@@ -11,8 +11,8 @@ const usersAPI = {
       email,
       name,
       password,
-      companyCode,
-      companyName,
+      companyCode: companyCode || "",
+      companyName: companyName || "",
     };
 
     return await api
@@ -23,13 +23,19 @@ const usersAPI = {
             return { ok: true };
         }
       })
-      .catch(({ response: { status } }) => {
-        switch (status) {
-          case 400:
-            alert(ERROR_MESSAGE.DUPLICATE_EMAIL);
-            return { ok: false };
+      .catch(
+        ({
+          response: {
+            data: { message },
+          },
+        }) => {
+          switch (message) {
+            case "ALREADY EXIST EMAIL":
+              alert(ERROR_MESSAGE.ALREADY_EXIST_EMAIL);
+              return { ok: false };
+          }
         }
-      });
+      );
   },
 };
 
