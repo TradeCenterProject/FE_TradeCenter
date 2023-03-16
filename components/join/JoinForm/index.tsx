@@ -7,7 +7,7 @@ import FormButton from "@components/common/FormButton";
 import CompanyFormContent from "./CompanyFormContent";
 
 const JoinFormContent = () => {
-  const [position, setPosition] = useState<Position>("사장");
+  const [position, setPosition] = useState<Position>("boss");
   const [formType, setFormType] = useState<FormType>("account");
   const { register, formState, handleSubmit, watch, reset } = useForm({
     defaultValues: {
@@ -23,7 +23,7 @@ const JoinFormContent = () => {
   const goAccountForm = () => setFormType("account");
 
   const onValid = () => {
-    if (position === "사장" && formType === "account")
+    if (position === "boss" && formType === "account")
       return setFormType("company");
 
     doSignUp();
@@ -57,7 +57,7 @@ const JoinFormContent = () => {
       )}
       <FormButton
         name={
-          position === "사장" && formType === "account" ? "다음" : "회원 가입"
+          position === "boss" && formType === "account" ? "다음" : "회원 가입"
         }
         disabled={!isValid}
       />

@@ -45,14 +45,10 @@ const AccountFormContent = ({
     <div className="space-y-6">
       <h2 className="text-center text-2xl font-bold">회원가입</h2>
       <div>
+        <Tab id="boss" isActive={position === "boss"} handleClick={changeTab} />
         <Tab
-          value="사장"
-          isActive={position === "사장"}
-          handleClick={changeTab}
-        />
-        <Tab
-          value="직원"
-          isActive={position === "직원"}
+          id="employee"
+          isActive={position === "employee"}
           handleClick={changeTab}
         />
       </div>
@@ -102,7 +98,7 @@ const AccountFormContent = ({
         })}
         error={errors?.passwordCheck?.message}
       />
-      {position == "직원" && (
+      {position == "employee" && (
         <Input
           type="text"
           placeholder="회사 코드 *"

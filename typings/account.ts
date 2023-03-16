@@ -7,5 +7,5 @@ export interface UserFormType {
   companyName?: string;
 }
 
-export type Position = "사장" | "직원" | string;
+export type Position = "boss" | "employee" | string;
 export type FormType = "account" | "company";

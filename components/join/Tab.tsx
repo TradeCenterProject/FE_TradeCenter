@@ -1,16 +1,18 @@
+import { MouseEvent } from "react";
+
 import { cls } from "@utils/styles";
-import { ReactNode, MouseEvent } from "react";
+import { POSITION } from "@constants/account";
 
 interface TabProps {
+  id: string;
   isActive: boolean;
-  value: string;
   handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Tab = ({ isActive, value, handleClick }: TabProps) => {
+const Tab = ({ id, isActive, handleClick }: TabProps) => {
   return (
     <button
-      id={value}
+      id={id}
       className={cls(
         "w-1/2 border-b-2 p-2",
         isActive
@@ -19,7 +21,7 @@ const Tab = ({ isActive, value, handleClick }: TabProps) => {
       )}
       onClick={handleClick}
     >
-      {value}
+      {POSITION[id]}
     </button>
   );
 };
