@@ -13,6 +13,7 @@ const Tab = ({ id, isActive, handleClick }: TabProps) => {
   return (
     <button
       id={id}
+      type="button"
       className={cls(
         "w-1/2 border-b-2 p-2",
         isActive

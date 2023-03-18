@@ -8,7 +8,7 @@ import type {
 import Input from "@components/common/LoginInput";
 import Tab from "@components/join/Tab";
 
-import { ERROR_MESSAGE } from "@constants/account";
+import { ERROR_MESSAGE, regExp } from "@constants/account";
 import { Position, UserFormType } from "@typings/account";
 
 interface AccountFormContentProps {
@@ -19,12 +19,6 @@ interface AccountFormContentProps {
   reset: UseFormReset<UserFormType>;
   setPosition: Dispatch<SetStateAction<string>>;
 }
-
-const regExp = {
-  email:
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-  password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,20}$/,
-};
 
 const AccountFormContent = ({
   fields,
@@ -37,7 +31,9 @@ const AccountFormContent = ({
   const { email, name, password, passwordCheck } = fields;
 
   const changeTab = (e: MouseEvent<HTMLButtonElement>) => {
-    setPosition(e.currentTarget.id);
+    const newPosition = e.currentTarget.id;
+
+    setPosition(newPosition);
     reset();
   };
 
@@ -60,7 +56,7 @@ const AccountFormContent = ({
           required: true,
           pattern: {
             value: regExp.email,
-            message: ERROR_MESSAGE.EMAIL,
+            message: ERROR_MESSAGE.JOIN.INVALID_EMAIL,
           },
         })}
         error={errors?.email?.message}
@@ -82,7 +78,7 @@ const AccountFormContent = ({
           required: true,
           pattern: {
             value: regExp.password,
-            message: ERROR_MESSAGE.PASSWORD,
+            message: ERROR_MESSAGE.JOIN.INVALID_PASSWORD,
           },
         })}
         error={errors?.password?.message}
@@ -94,7 +90,8 @@ const AccountFormContent = ({
         register={register("passwordCheck", {
           required: true,
           validate: (value, formValues) =>
-            value === formValues.password || ERROR_MESSAGE.PASSWORD_CHECK,
+            value === formValues.password ||
+            ERROR_MESSAGE.JOIN.INVALID_PASSWORD_CHECK,
         })}
         error={errors?.passwordCheck?.message}
       />

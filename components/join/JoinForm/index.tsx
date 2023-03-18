@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { FormType, Position } from "@typings/account";
 
+import usersAPI from "@api/users";
+import { FormType, Position, UserFormType } from "@typings/account";
 import AccountFormContent from "./AccountFormContent";
 import FormButton from "@components/common/FormButton";
 import CompanyFormContent from "./CompanyFormContent";
@@ -19,21 +21,28 @@ const JoinFormContent = () => {
   });
   const { errors, isValid, isSubmitting } = formState;
   const fields = watch();
+  const router = useRouter();
 
   const goAccountForm = () => setFormType("account");
 
-  const onValid = () => {
+  const onValid = async (values: UserFormType) => {
     if (formType === "account") {
-      // account validation request
+      const result = await usersAPI.validateAccount(values);
 
-      return setFormType("company");
+      if (result && result.ok) return setFormType("company");
+
+      return null;
     }
 
-    doSignUp();
+    doSignUp(values);
   };
 
-  const doSignUp = () => {
+  const doSignUp = async (values: UserFormType) => {
     if (isSubmitting) return;
+
+    const result = await usersAPI.signUp(values);
+
+    if (result && result.ok) router.replace("/login");
   };
 
   return (
