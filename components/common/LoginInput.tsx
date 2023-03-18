@@ -43,7 +43,7 @@ const Input = ({
       />
       <label
         className={cls(
-          "absolute left-4 top-3 text-sm text-gray-400 transition-all peer-focus:top-[0.2rem] peer-focus:text-xs",
+          "pointer-events-none absolute left-4 top-3 text-sm text-gray-400 transition-all peer-focus:top-[0.2rem] peer-focus:text-xs",
           value !== "" ? "top-[0.2rem] text-xs" : ""
         )}
         onClick={onClickPlaceholder}

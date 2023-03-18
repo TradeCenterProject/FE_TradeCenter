@@ -11,7 +11,7 @@ const Button = ({ color, value, form }: ButtonProps) => {
     <button
       form={form}
       className={cls(
-        "cursor-pointer rounded-[3px] border border-borderColor py-[1.6px] px-5 text-[0.8rem] font-semibold leading-normal",
+        "cursor-pointer rounded-[3px] border border-borderColor py-[1.6px] px-5 text-[0.8rem] font-semibold leading-normal outline-0",
         color === "green"
           ? "bg-primary text-white active:bg-green-600"
           : color === "red"
