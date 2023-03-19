@@ -69,6 +69,26 @@ const usersAPI = {
         return { ok: false };
       });
   },
+  signIn: async (values: UserFormType) => {
+    const body = values;
+
+    return await api
+      .post(`${url}/login`, body, {
+        headers: {
+          withCredentials: true,
+        },
+      })
+      .then((res) => {
+        switch (res.status) {
+          case 200:
+            // 임시
+            document.cookie = "sessionId=" + res.data + "; path=/;";
+        }
+
+        return { ok: true };
+      })
+      .catch((err) => {});
+  },
 };
 
 export default usersAPI;

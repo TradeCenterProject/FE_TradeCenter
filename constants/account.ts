@@ -14,6 +14,7 @@ interface SuccessMessageType {
 
 interface ErrorMessageType {
   JOIN: MessageType;
+  LOGIN: string;
 }
 
 export const regExp = {
@@ -37,6 +38,7 @@ export const ERROR_MESSAGE: ErrorMessageType = {
     NOT_EXIST_COMPANY_CODE: "존재하지 않는 회사 코드입니다.",
     INVALID_COMPANY_NAME: "회사 이름은 띄어쓰기 없이 입력해주세요.",
   },
+  LOGIN: "이메일 또는 비밀번호가 일치하지 않습니다.",
 };
 
 export const POSITION: PositionType = {
