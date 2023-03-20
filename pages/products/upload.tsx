@@ -1,6 +1,8 @@
-import { ChangeEvent, useRef } from "react";
-
+import { ChangeEvent, useRef, useState } from "react";
 import readXlsxFile from "read-excel-file";
+
+import { PRODUCT_LIST_INFO, PRODUCT_LIST_THEADS } from "@constants/products";
+import { ProductType } from "@typings/products";
 
 import Button from "@components/common/Button";
 import Form from "@components/common/Form";
@@ -8,13 +10,13 @@ import FormInput from "@components/common/FormInput";
 import FormItem from "@components/common/FormItem";
 import Table from "@components/common/Table";
 import Layout from "@components/layout";
-import { PRODUCT_LIST_INFO, PRODUCT_LIST_THEADS } from "@constants/products";
 
 interface MapType {
   [key: string]: string;
 }
 
-const ProductUploadPage = (e: MouseEvent) => {
+const ProductUploadPage = () => {
+  const [dataList, setDataList] = useState<ProductType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClickExcelUpload = () =>
@@ -29,7 +31,10 @@ const ProductUploadPage = (e: MouseEvent) => {
 
     ProductInfoEntries.map(([key, value]) => (map[value] = key));
 
-    const { rows } = await readXlsxFile(fileData, { map });
+    const { rows } = await readXlsxFile<ProductType>(fileData, { map });
+    setDataList((prev) => prev && [...prev, ...rows]);
+
+    target.value = "";
   };
 
   return (
@@ -77,7 +82,7 @@ const ProductUploadPage = (e: MouseEvent) => {
             />
             <Button color="green" value="등록하기" />
           </div>
-          <Table thead={PRODUCT_LIST_THEADS} />
+          <Table thead={PRODUCT_LIST_THEADS} dataList={dataList} />
         </div>
       </div>
     </Layout>
