@@ -14,7 +14,7 @@ const JoinFormContent = () => {
   const { register, formState, handleSubmit, watch, reset } = useForm({
     defaultValues: {
       email: "",
-      name: "",
+      userName: "",
       password: "",
     },
     mode: "all",
