@@ -54,7 +54,7 @@ const ProductUploadPage = () => {
             <FormInput id="price" />
           </FormItem>
           <FormItem id="listOrder" label="No.">
-            <span className="px-1">11</span>
+            <span className="px-1">{dataList.length + 1}</span>
           </FormItem>
           <FormItem id="productCompany" label="생산처">
             <FormInput id="productCompany" />
