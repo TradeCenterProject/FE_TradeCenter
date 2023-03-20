@@ -1,6 +1,6 @@
 export interface UserFormType {
   email: string;
-  name: string;
+  userName: string;
   password: string;
   passwordCheck?: string;
   companyCode?: string;

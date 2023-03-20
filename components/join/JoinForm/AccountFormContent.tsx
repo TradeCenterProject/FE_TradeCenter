@@ -28,7 +28,7 @@ const AccountFormContent = ({
   reset,
   setPosition,
 }: AccountFormContentProps) => {
-  const { email, name, password, passwordCheck } = fields;
+  const { email, userName, password, passwordCheck } = fields;
 
   const changeTab = (e: MouseEvent<HTMLButtonElement>) => {
     const newPosition = e.currentTarget.id;
@@ -64,11 +64,11 @@ const AccountFormContent = ({
       <Input
         type="text"
         placeholder="이름 *"
-        value={name}
-        register={register("name", {
+        value={userName}
+        register={register("userName", {
           required: true,
         })}
-        error={errors?.name?.message}
+        error={errors?.userName?.message}
       />
       <Input
         type="password"
