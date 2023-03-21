@@ -1,5 +1,5 @@
-import { useRouter } from "next/dist/client/router";
-import { FieldErrors, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { setCookie } from "cookies-next";
 
 import usersAPI from "@api/users";
 import FormButton from "@components/common/FormButton";
@@ -18,7 +18,6 @@ const LogInForm = () => {
     });
   const { isSubmitting } = formState;
   const { email, password } = watch();
-  const router = useRouter();
 
   const onValid = (values: UserFormType) => doSignIn(values);
 
@@ -29,7 +28,12 @@ const LogInForm = () => {
 
     const result = await usersAPI.signIn(values);
 
-    if (result && result.ok) router.replace("/products/lists");
+    if (result && result.ok) {
+      setCookie("sessionId", result.sessionId, {
+        path: "/",
+      });
+      window.location.href = "/products/lists";
+    }
   };
 
   return (
