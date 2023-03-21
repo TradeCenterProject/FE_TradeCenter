@@ -79,13 +79,7 @@ const usersAPI = {
         },
       })
       .then((res) => {
-        switch (res.status) {
-          case 200:
-            // 임시
-            document.cookie = "sessionId=" + res.data + "; path=/;";
-        }
-
-        return { ok: true };
+        return { ok: true, sessionId: res.data };
       })
       .catch((err) => {});
   },
