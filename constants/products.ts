@@ -24,4 +24,5 @@ export const SUCCESS_MESSAGE = {
 
 export const ERROR_MESSAGE = {
   UPLOAD: "데이터 등록을 실패하였습니다.",
+  NULL_DATA: "등록할 데이터가 없습니다.",
 };

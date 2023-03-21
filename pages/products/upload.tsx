@@ -2,7 +2,11 @@ import { ChangeEvent, useRef, useState } from "react";
 import readXlsxFile from "read-excel-file";
 
 import stocksAPI from "@api/stocks";
-import { PRODUCT_LIST_INFO, PRODUCT_LIST_THEADS } from "@constants/products";
+import {
+  ERROR_MESSAGE,
+  PRODUCT_LIST_INFO,
+  PRODUCT_LIST_THEADS,
+} from "@constants/products";
 import { ProductType } from "@typings/products";
 
 import Button from "@components/common/Button";
@@ -40,7 +44,7 @@ const ProductUploadPage = () => {
   };
 
   const uploadDataList = async () => {
-    if (!dataList.length) return alert("등록할 데이터가 없습니다.");
+    if (!dataList.length) return alert(ERROR_MESSAGE.NULL_DATA);
 
     const result = await stocksAPI.addStocks(dataList);
     if (result && result.ok) setDataList([]);
