@@ -1,6 +1,7 @@
 import { ChangeEvent, useRef, useState } from "react";
 import readXlsxFile from "read-excel-file";
 
+import stocksAPI from "@api/stocks";
 import { PRODUCT_LIST_INFO, PRODUCT_LIST_THEADS } from "@constants/products";
 import { ProductType } from "@typings/products";
 
@@ -17,7 +18,7 @@ interface MapType {
 }
 
 const ProductUploadPage = () => {
-  const { register, watch, reset } = useForm<ProductType>({
+  const { register, reset, handleSubmit } = useForm<ProductType>({
     defaultValues: {
       productCode: "",
       productName: "",
@@ -30,6 +31,20 @@ const ProductUploadPage = () => {
   });
   const [dataList, setDataList] = useState<ProductType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const onValid = (data: ProductType) => addData(data);
+
+  const addData = (data: ProductType) => {
+    setDataList((prev) => prev && [...prev, data]);
+    reset();
+  };
+
+  const uploadDataList = async () => {
+    if (!dataList.length) return alert("등록할 데이터가 없습니다.");
+
+    const result = await stocksAPI.addStocks(dataList);
+    if (result && result.ok) setDataList([]);
+  };
 
   const handleClickExcelUpload = () =>
     inputRef.current && inputRef.current.click();
@@ -51,12 +66,6 @@ const ProductUploadPage = () => {
     target.value = "";
   };
 
-  const addData = () => {
-    const row = watch();
-    setDataList((prev) => prev && [...prev, row]);
-    reset();
-  };
-
   return (
     <Layout title="물품 등록">
       <div className="space-y-10">
@@ -75,9 +84,13 @@ const ProductUploadPage = () => {
               value="엑셀 등록"
               handleClick={handleClickExcelUpload}
             />
-            <Button color="green" value="추가" handleClick={addData} />
+            <Button color="green" value="추가" form="productUpload" />
           </div>
-          <Form id="productUpload" rowCount={4}>
+          <Form
+            id="productUpload"
+            rowCount={4}
+            onSubmit={handleSubmit(onValid)}
+          >
             <FormItem id="productCode" label="제품 코드">
               <FormInput
                 id="productCode"
@@ -133,7 +146,11 @@ const ProductUploadPage = () => {
         </div>
         <div className="space-y-2">
           <div className="flex justify-end gap-2">
-            <Button color="green" value="저장하기" />
+            <Button
+              color="green"
+              value="등록하기"
+              handleClick={uploadDataList}
+            />
           </div>
           <Table thead={PRODUCT_LIST_THEADS} dataList={dataList} />
         </div>
