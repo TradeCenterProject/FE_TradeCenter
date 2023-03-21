@@ -6,10 +6,10 @@ const url = "/users";
 
 const usersAPI = {
   validateAccount: async (values: UserFormType) => {
-    const { email, name, password, companyCode, companyName } = values;
+    const { email, userName, password, companyCode, companyName } = values;
     const body = {
       email,
-      name,
+      userName,
       password,
       companyCode: companyCode || "",
       companyName: companyName || "",
@@ -35,10 +35,10 @@ const usersAPI = {
       });
   },
   signUp: async (values: UserFormType) => {
-    const { email, name, password, companyCode, companyName } = values;
+    const { email, userName, password, companyCode, companyName } = values;
     const body = {
       email,
-      name,
+      userName,
       password,
       companyCode: companyCode || "",
       companyName: companyName || "",

@@ -1,20 +1,26 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 
-interface TableProps {
+interface TableProps<T> {
+  dataList: T[];
   checkable?: boolean;
   thead: string[];
   checkedIds?: Set<number>;
   setCheckedIds?: Dispatch<SetStateAction<Set<number>>>;
 }
 
-const mockArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-const Table = ({ checkable, thead, checkedIds, setCheckedIds }: TableProps) => {
+const Table = <T extends object>({
+  dataList,
+  checkable,
+  thead,
+  checkedIds,
+  setCheckedIds,
+}: TableProps<T>) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
 
   const onToggleCheckAll = () => {
     if (!setCheckedIds) return;
-    const newSet = new Set<number>(mockArray);
+    const numberArray = Array.from({ length: dataList.length }, (_, i) => i);
+    const newSet = new Set(numberArray);
 
     if (isCheckedAll) newSet.clear();
 
@@ -29,16 +35,16 @@ const Table = ({ checkable, thead, checkedIds, setCheckedIds }: TableProps) => {
     const newSet = new Set<number>(checkedIds);
 
     isChecked ? newSet.delete(id) : newSet.add(id);
-    newSet.size === mockArray.length
+    newSet.size === dataList.length
       ? setIsCheckedAll(true)
       : setIsCheckedAll(false);
     setCheckedIds(newSet);
   };
 
   return (
-    <div className="overflow-hidden rounded-sm">
+    <div className="h-[calc(100vh-25rem)] overflow-hidden overflow-y-auto rounded-sm">
       <table className="w-full rounded-sm text-center text-sm">
-        <thead className="bg-primary text-white">
+        <thead className="sticky top-[-1px] bg-primary text-white">
           <tr className="[&>th]:border [&>th]:border-borderColor [&>th]:py-1 [&>th]:font-semibold">
             {checkable && (
               <th className="w-7">
@@ -56,7 +62,7 @@ const Table = ({ checkable, thead, checkedIds, setCheckedIds }: TableProps) => {
           </tr>
         </thead>
         <tbody>
-          {mockArray.map((_, i) => (
+          {dataList?.map((row, i) => (
             <tr
               key={i}
               className="[&>td]:border [&>td]:border-borderColor [&>td]:py-1 [&:last-child>td]:rounded-lg"
@@ -71,14 +77,10 @@ const Table = ({ checkable, thead, checkedIds, setCheckedIds }: TableProps) => {
                   />
                 </td>
               )}
-              <td>10</td>
-              <td>AABB110109105</td>
-              <td>리슈아 손소독제</td>
-              <td>리슈아</td>
-              <td>1100 (의약외품)</td>
-              <td>B10-10</td>
-              <td>11,000</td>
-              <td>100</td>
+              <td>{i + 1}</td>
+              {Object.values(row).map((data, i) => (
+                <td key={i}>{data}</td>
+              ))}
             </tr>
           ))}
         </tbody>
