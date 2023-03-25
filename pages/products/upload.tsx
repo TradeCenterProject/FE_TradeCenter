@@ -8,6 +8,7 @@ import {
   PRODUCT_LIST_THEADS,
 } from "@constants/products";
 import { ProductType } from "@typings/products";
+import useProductUpload from "@hooks/useProductUpload";
 
 import Button from "@components/common/Button";
 import Form from "@components/common/Form";
@@ -15,81 +16,22 @@ import FormInput from "@components/common/FormInput";
 import FormItem from "@components/common/FormItem";
 import Table from "@components/common/Table";
 import Layout from "@components/layout";
-import { useForm } from "react-hook-form";
-
-interface MapType {
-  [key: string]: string;
-}
 
 const ProductUploadPage = () => {
-  const { register, reset, handleSubmit } = useForm<ProductType>({
-    defaultValues: {
-      productCode: "",
-      productName: "",
-      productCompany: "",
-      productCategory: "",
-      location: "",
-      price: "",
-      quantity: "",
-    },
-  });
-  const [dataList, setDataList] = useState<ProductType[]>([]);
+  const {
+    dataList,
+    currentIdx,
+    setDataList,
+    register,
+    handleSubmit,
+    onValid,
+    addExcelFileData,
+    uploadDataList,
+  } = useProductUpload();
   const inputRef = useRef<HTMLInputElement>(null);
-  const currentIdx = useRef<number>(1);
-
-  const onValid = (data: ProductType) => addData(data);
-
-  const addData = (data: ProductType) => {
-    const { idx, ...rest } = data;
-
-    setDataList(
-      (prev) =>
-        prev && [
-          ...prev,
-          {
-            idx: currentIdx.current++,
-            ...rest,
-          },
-        ]
-    );
-
-    reset();
-  };
-
-  const uploadDataList = async (data: ProductType[]) => {
-    if (!data.length) return alert(ERROR_MESSAGE.NULL_DATA);
-
-    const result = await stocksAPI.addStocks(data);
-    if (result && result.ok) {
-      setDataList([]);
-      currentIdx.current = 1;
-    }
-  };
 
   const handleClickExcelUpload = () =>
     inputRef.current && inputRef.current.click();
-
-  const addExcelFileData = async ({
-    target,
-  }: ChangeEvent<HTMLInputElement>) => {
-    const fileData = target.files && target.files[0];
-    if (!fileData) return;
-
-    const ProductInfoEntries = Object.entries(PRODUCT_LIST_INFO);
-    const map: MapType = {};
-
-    ProductInfoEntries.map(([key, value]) => (map[value] = key));
-
-    const { rows } = await readXlsxFile<ProductType>(fileData, { map });
-    const indexedRows = rows.map(({ idx, ...rest }) => ({
-      idx: currentIdx.current++,
-      ...rest,
-    }));
-
-    setDataList((prev) => prev && [...prev, ...indexedRows]);
-
-    target.value = "";
-  };
 
   return (
     <Layout title="물품 등록">
@@ -144,7 +86,7 @@ const ProductUploadPage = () => {
               />
             </FormItem>
             <FormItem id="listOrder" label="No.">
-              <span className="px-1">{currentIdx.current}</span>
+              <span className="px-1">{currentIdx}</span>
             </FormItem>
             <FormItem id="productCompany" label="생산처">
               <FormInput
