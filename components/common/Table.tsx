@@ -8,9 +8,8 @@ interface TableProps<T> {
   uploadable?: boolean;
   checkable?: boolean;
   thead: string[];
-  checkedIds?: Set<number>;
   setDataList: Dispatch<SetStateAction<T[]>>;
-  handleUpload: () => void;
+  handleUpload: (data: T[]) => void;
 }
 
 const Table = <T extends ProductType>({
@@ -48,7 +47,7 @@ const Table = <T extends ProductType>({
     setCheckedIds(newSet);
   };
 
-  const onDeleteRow = () => {
+  const onDeleteSelectedRows = () => {
     const newDataList = dataList.filter(({ idx }) => {
       if (!idx) return;
       return checkedIds.has(idx) ? false : true;
@@ -57,12 +56,29 @@ const Table = <T extends ProductType>({
     setDataList(newDataList);
   };
 
+  const onUploadSelectedRows = () => {
+    const newDataList = dataList.filter(({ idx }) => {
+      if (!idx) return;
+      return checkedIds.has(idx) ? true : false;
+    });
+
+    handleUpload(newDataList);
+  };
+
   return (
     <div className="h-[calc(100vh-25rem)] space-y-2 overflow-hidden overflow-y-auto rounded-sm">
       {uploadable && (
         <div className="flex justify-end gap-2">
-          <Button color="red" value="선택 삭제" handleClick={onDeleteRow} />
-          <Button color="green" value="등록하기" handleClick={handleUpload} />
+          <Button
+            color="red"
+            value="선택 삭제"
+            handleClick={onDeleteSelectedRows}
+          />
+          <Button
+            color="green"
+            value="선택 등록"
+            handleClick={onUploadSelectedRows}
+          />
         </div>
       )}
       <table className="w-full rounded-sm text-center text-sm">

@@ -54,10 +54,10 @@ const ProductUploadPage = () => {
     reset();
   };
 
-  const uploadDataList = async () => {
-    if (!dataList.length) return alert(ERROR_MESSAGE.NULL_DATA);
+  const uploadDataList = async (data: ProductType[]) => {
+    if (!data.length) return alert(ERROR_MESSAGE.NULL_DATA);
 
-    const result = await stocksAPI.addStocks(dataList);
+    const result = await stocksAPI.addStocks(data);
     if (result && result.ok) setDataList([]);
   };
 
