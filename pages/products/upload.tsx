@@ -60,7 +60,10 @@ const ProductUploadPage = () => {
     if (!data.length) return alert(ERROR_MESSAGE.NULL_DATA);
 
     const result = await stocksAPI.addStocks(data);
-    if (result && result.ok) setDataList([]);
+    if (result && result.ok) {
+      setDataList([]);
+      currentIdx.current = 1;
+    }
   };
 
   const handleClickExcelUpload = () =>
