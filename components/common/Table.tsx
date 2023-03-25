@@ -1,21 +1,25 @@
+import { ProductType } from "@typings/products";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import Button from "./Button";
 
 interface TableProps<T> {
   dataList: T[];
   checkable?: boolean;
   thead: string[];
   checkedIds?: Set<number>;
-  setCheckedIds?: Dispatch<SetStateAction<Set<number>>>;
+  setDataList: Dispatch<SetStateAction<T[]>>;
+  handleUpload: () => void;
 }
 
-const Table = <T extends object>({
+const Table = <T extends ProductType>({
   dataList,
   checkable,
   thead,
-  checkedIds,
-  setCheckedIds,
+  setDataList,
+  handleUpload,
 }: TableProps<T>) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
+  const [checkedIds, setCheckedIds] = useState<Set<number>>(new Set());
 
   const onToggleCheckAll = () => {
     if (!setCheckedIds) return;
@@ -41,8 +45,21 @@ const Table = <T extends object>({
     setCheckedIds(newSet);
   };
 
+  const onDeleteRow = () => {
+    const newDataList = dataList.filter(({ idx }) => {
+      if (!idx) return;
+      return checkedIds.has(idx) ? false : true;
+    });
+
+    setDataList(newDataList);
+  };
+
   return (
-    <div className="h-[calc(100vh-25rem)] overflow-hidden overflow-y-auto rounded-sm">
+    <div className="h-[calc(100vh-25rem)] space-y-2 overflow-hidden overflow-y-auto rounded-sm">
+      <div className="flex justify-end gap-2">
+        <Button color="red" value="선택 삭제" handleClick={onDeleteRow} />
+        <Button color="green" value="등록하기" handleClick={handleUpload} />
+      </div>
       <table className="w-full rounded-sm text-center text-sm">
         <thead className="sticky top-[-1px] bg-primary text-white">
           <tr className="[&>th]:border [&>th]:border-borderColor [&>th]:py-1 [&>th]:font-semibold">
@@ -70,14 +87,13 @@ const Table = <T extends object>({
               {checkable && (
                 <td>
                   <input
-                    id={i.toString()}
+                    id={row.idx?.toString()}
                     type="checkbox"
-                    checked={checkedIds?.has(i)}
+                    checked={checkedIds?.has(row.idx || -1)}
                     onChange={onToggleCheck}
                   />
                 </td>
               )}
-              <td>{i + 1}</td>
               {Object.values(row).map((data, i) => (
                 <td key={i}>{data}</td>
               ))}

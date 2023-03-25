@@ -35,11 +35,22 @@ const ProductUploadPage = () => {
   });
   const [dataList, setDataList] = useState<ProductType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const currentIdx = useRef<number>(1);
 
   const onValid = (data: ProductType) => addData(data);
 
   const addData = (data: ProductType) => {
-    setDataList((prev) => prev && [...prev, data]);
+    setDataList(
+      (prev) =>
+        prev && [
+          ...prev,
+          {
+            idx: currentIdx.current++,
+            ...data,
+          },
+        ]
+    );
+
     reset();
   };
 
@@ -65,7 +76,12 @@ const ProductUploadPage = () => {
     ProductInfoEntries.map(([key, value]) => (map[value] = key));
 
     const { rows } = await readXlsxFile<ProductType>(fileData, { map });
-    setDataList((prev) => prev && [...prev, ...rows]);
+    const indexedRows = rows.map((row) => ({
+      idx: currentIdx.current++,
+      ...row,
+    }));
+
+    setDataList((prev) => prev && [...prev, ...indexedRows]);
 
     target.value = "";
   };
@@ -123,7 +139,7 @@ const ProductUploadPage = () => {
               />
             </FormItem>
             <FormItem id="listOrder" label="No.">
-              <span className="px-1">{dataList.length + 1}</span>
+              <span className="px-1">{currentIdx.current}</span>
             </FormItem>
             <FormItem id="productCompany" label="생산처">
               <FormInput
@@ -148,16 +164,13 @@ const ProductUploadPage = () => {
             </FormItem>
           </Form>
         </div>
-        <div className="space-y-2">
-          <div className="flex justify-end gap-2">
-            <Button
-              color="green"
-              value="등록하기"
-              handleClick={uploadDataList}
-            />
-          </div>
-          <Table thead={PRODUCT_LIST_THEADS} dataList={dataList} />
-        </div>
+        <Table
+          checkable
+          thead={PRODUCT_LIST_THEADS}
+          dataList={dataList}
+          setDataList={setDataList}
+          handleUpload={uploadDataList}
+        />
       </div>
     </Layout>
   );
