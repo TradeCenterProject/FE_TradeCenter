@@ -81,7 +81,18 @@ const usersAPI = {
       .then((res) => {
         return { ok: true, sessionId: res.data };
       })
-      .catch((err) => {});
+      .catch((err) => {
+        const {
+          response: {
+            data: { message },
+          },
+        } = err;
+
+        switch (message) {
+          case "NOT EXIST EMAIL":
+            alert(ERROR_MESSAGE.LOGIN);
+        }
+      });
   },
 };
 
