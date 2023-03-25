@@ -8,7 +8,7 @@ export async function verifySession(config: InternalAxiosRequestConfig) {
   const sessionId = getCookie("sessionId") as string;
 
   if (pathname !== "/login" && pathname !== "/join") {
-    if (!sessionId) return (window.location.href = "../login");
+    if (!sessionId) window.location.href = "../login";
     config.headers.Authorization = sessionId;
   }
 
