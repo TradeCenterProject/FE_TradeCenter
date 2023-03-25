@@ -29,8 +29,8 @@ const ProductUploadPage = () => {
       productCompany: "",
       productCategory: "",
       location: "",
-      price: 0,
-      quantity: 0,
+      price: "",
+      quantity: "",
     },
   });
   const [dataList, setDataList] = useState<ProductType[]>([]);

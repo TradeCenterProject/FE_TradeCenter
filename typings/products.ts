@@ -5,6 +5,6 @@ export interface ProductType {
   productCompany: string;
   productCategory: string;
   location: string;
-  price: number;
-  quantity: number;
+  price: number | string;
+  quantity: number | string;
 }

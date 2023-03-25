@@ -1,4 +1,5 @@
 import { ProductType } from "@typings/products";
+import { formattedNumber } from "@utils/format";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import Button from "./Button";
 
@@ -99,7 +100,7 @@ const Table = <T extends ProductType>({
                 </td>
               )}
               {Object.values(row).map((data, i) => (
-                <td key={i}>{data}</td>
+                <td key={i}>{isNaN(data) ? data : formattedNumber(data)}</td>
               ))}
             </tr>
           ))}
