@@ -165,6 +165,7 @@ const ProductUploadPage = () => {
           </Form>
         </div>
         <Table
+          uploadable
           checkable
           thead={PRODUCT_LIST_THEADS}
           dataList={dataList}

@@ -4,6 +4,7 @@ import Button from "./Button";
 
 interface TableProps<T> {
   dataList: T[];
+  uploadable?: boolean;
   checkable?: boolean;
   thead: string[];
   checkedIds?: Set<number>;
@@ -13,6 +14,7 @@ interface TableProps<T> {
 
 const Table = <T extends ProductType>({
   dataList,
+  uploadable,
   checkable,
   thead,
   setDataList,
@@ -56,10 +58,12 @@ const Table = <T extends ProductType>({
 
   return (
     <div className="h-[calc(100vh-25rem)] space-y-2 overflow-hidden overflow-y-auto rounded-sm">
-      <div className="flex justify-end gap-2">
-        <Button color="red" value="선택 삭제" handleClick={onDeleteRow} />
-        <Button color="green" value="등록하기" handleClick={handleUpload} />
-      </div>
+      {uploadable && (
+        <div className="flex justify-end gap-2">
+          <Button color="red" value="선택 삭제" handleClick={onDeleteRow} />
+          <Button color="green" value="등록하기" handleClick={handleUpload} />
+        </div>
+      )}
       <table className="w-full rounded-sm text-center text-sm">
         <thead className="sticky top-[-1px] bg-primary text-white">
           <tr className="[&>th]:border [&>th]:border-borderColor [&>th]:py-1 [&>th]:font-semibold">
