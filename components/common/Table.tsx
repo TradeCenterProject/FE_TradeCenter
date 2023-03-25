@@ -25,7 +25,7 @@ const Table = <T extends ProductType>({
 
   const onToggleCheckAll = () => {
     if (!setCheckedIds) return;
-    const numberArray = Array.from({ length: dataList.length }, (_, i) => i);
+    const numberArray = dataList.map(({ idx }) => idx);
     const newSet = new Set(numberArray);
 
     if (isCheckedAll) newSet.clear();

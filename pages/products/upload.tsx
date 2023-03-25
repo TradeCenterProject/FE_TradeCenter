@@ -40,13 +40,15 @@ const ProductUploadPage = () => {
   const onValid = (data: ProductType) => addData(data);
 
   const addData = (data: ProductType) => {
+    const { idx, ...rest } = data;
+
     setDataList(
       (prev) =>
         prev && [
           ...prev,
           {
             idx: currentIdx.current++,
-            ...data,
+            ...rest,
           },
         ]
     );
@@ -76,9 +78,9 @@ const ProductUploadPage = () => {
     ProductInfoEntries.map(([key, value]) => (map[value] = key));
 
     const { rows } = await readXlsxFile<ProductType>(fileData, { map });
-    const indexedRows = rows.map((row) => ({
+    const indexedRows = rows.map(({ idx, ...rest }) => ({
       idx: currentIdx.current++,
-      ...row,
+      ...rest,
     }));
 
     setDataList((prev) => prev && [...prev, ...indexedRows]);

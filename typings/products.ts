@@ -1,5 +1,5 @@
 export interface ProductType {
-  idx?: number;
+  idx: number;
   productCode: string;
   productName: string;
   productCompany: string;
