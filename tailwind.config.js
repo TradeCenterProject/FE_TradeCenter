@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         primary: "#6ACE8E",
         borderColor: "#B0B8C1",
+        mutedYellow: "#F5D76C",
       },
     },
   },
