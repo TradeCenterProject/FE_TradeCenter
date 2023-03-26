@@ -24,7 +24,8 @@
       "@constants/*": ["constants/*"],
       "@typings/*": ["typings/*"],
       "@hooks/*": ["hooks/*"],
-      "@api/*": ["api/*"]
+      "@api/*": ["api/*"],
+      "@states/*": ["states/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -17,3 +17,12 @@ export const SEARCH_OPTIONS = [
   "제품 분류",
   "저장 위치",
 ];
+
+export const SUCCESS_MESSAGE = {
+  UPLOAD: "데이터 등록을 완료하였습니다.",
+};
+
+export const ERROR_MESSAGE = {
+  UPLOAD: "데이터 등록을 실패하였습니다.",
+  NULL_DATA: "등록할 데이터가 없습니다.",
+};

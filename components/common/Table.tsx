@@ -1,25 +1,33 @@
+import { ProductType } from "@typings/products";
+import { formattedNumber } from "@utils/format";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import Button from "./Button";
 
 interface TableProps<T> {
   dataList: T[];
+  uploadable?: boolean;
   checkable?: boolean;
   thead: string[];
-  checkedIds?: Set<number>;
-  setCheckedIds?: Dispatch<SetStateAction<Set<number>>>;
+  setDataList: Dispatch<SetStateAction<T[]>>;
+  handleUpload: (data: T[]) => void;
 }
 
-const Table = <T extends object>({
+const Table = <T extends ProductType>({
   dataList,
+  uploadable,
   checkable,
   thead,
-  checkedIds,
-  setCheckedIds,
+  setDataList,
+  handleUpload,
 }: TableProps<T>) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
+  const [checkedIds, setCheckedIds] = useState<Set<number>>(new Set());
+
+  const resetCheckedIds = () => setCheckedIds(new Set());
 
   const onToggleCheckAll = () => {
     if (!setCheckedIds) return;
-    const numberArray = Array.from({ length: dataList.length }, (_, i) => i);
+    const numberArray = dataList.map(({ idx }) => idx);
     const newSet = new Set(numberArray);
 
     if (isCheckedAll) newSet.clear();
@@ -41,8 +49,42 @@ const Table = <T extends object>({
     setCheckedIds(newSet);
   };
 
+  const onDeleteSelectedRows = () => {
+    const newDataList = dataList.filter(({ idx }) => {
+      if (!idx) return;
+      return checkedIds.has(idx) ? false : true;
+    });
+
+    setDataList(newDataList);
+    resetCheckedIds();
+  };
+
+  const onUploadSelectedRows = () => {
+    const newDataList = dataList.filter(({ idx }) => {
+      if (!idx) return;
+      return checkedIds.has(idx) ? true : false;
+    });
+
+    handleUpload(newDataList);
+    resetCheckedIds();
+  };
+
   return (
-    <div className="h-[calc(100vh-25rem)] overflow-hidden overflow-y-auto rounded-sm">
+    <div className="h-[calc(100vh-25rem)] space-y-2 overflow-hidden overflow-y-auto rounded-sm">
+      {uploadable && (
+        <div className="flex justify-end gap-2">
+          <Button
+            color="red"
+            value="선택 삭제"
+            handleClick={onDeleteSelectedRows}
+          />
+          <Button
+            color="green"
+            value="선택 등록"
+            handleClick={onUploadSelectedRows}
+          />
+        </div>
+      )}
       <table className="w-full rounded-sm text-center text-sm">
         <thead className="sticky top-[-1px] bg-primary text-white">
           <tr className="[&>th]:border [&>th]:border-borderColor [&>th]:py-1 [&>th]:font-semibold">
@@ -70,16 +112,15 @@ const Table = <T extends object>({
               {checkable && (
                 <td>
                   <input
-                    id={i.toString()}
+                    id={row.idx?.toString()}
                     type="checkbox"
-                    checked={checkedIds?.has(i)}
+                    checked={checkedIds?.has(row.idx || -1)}
                     onChange={onToggleCheck}
                   />
                 </td>
               )}
-              <td>{i + 1}</td>
               {Object.values(row).map((data, i) => (
-                <td key={i}>{data}</td>
+                <td key={i}>{isNaN(data) ? data : formattedNumber(data)}</td>
               ))}
             </tr>
           ))}

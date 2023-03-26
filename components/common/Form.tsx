@@ -1,11 +1,9 @@
 import { ReactNode } from "react";
 import { cls } from "@utils/styles";
-import Button from "./Button";
 
 interface FormProps {
   id: string;
   rowCount: number;
-  submittable?: boolean;
   children: ReactNode;
   onSubmit?: any;
 }
@@ -26,14 +24,9 @@ const gridBorderStyles: GridRowsType = {
   4: "[&>div:nth-child(4)]:border-none",
 };
 
-const Form = ({ id, rowCount, submittable, children, onSubmit }: FormProps) => {
+const Form = ({ id, rowCount, children, onSubmit }: FormProps) => {
   return (
     <form id={id} onSubmit={onSubmit}>
-      {submittable && (
-        <div className="mb-2 flex justify-end">
-          <Button color="green" value="추가" />
-        </div>
-      )}
       <div
         className={cls(
           `grid grid-flow-col grid-cols-2 overflow-hidden rounded-md border border-borderColor text-sm`,
