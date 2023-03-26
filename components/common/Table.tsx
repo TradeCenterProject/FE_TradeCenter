@@ -23,6 +23,8 @@ const Table = <T extends ProductType>({
   const [isCheckedAll, setIsCheckedAll] = useState(false);
   const [checkedIds, setCheckedIds] = useState<Set<number>>(new Set());
 
+  const resetCheckedIds = () => setCheckedIds(new Set());
+
   const onToggleCheckAll = () => {
     if (!setCheckedIds) return;
     const numberArray = dataList.map(({ idx }) => idx);
@@ -45,6 +47,7 @@ const Table = <T extends ProductType>({
       ? setIsCheckedAll(true)
       : setIsCheckedAll(false);
     setCheckedIds(newSet);
+    resetCheckedIds();
   };
 
   const onDeleteSelectedRows = () => {
@@ -63,6 +66,7 @@ const Table = <T extends ProductType>({
     });
 
     handleUpload(newDataList);
+    resetCheckedIds();
   };
 
   return (

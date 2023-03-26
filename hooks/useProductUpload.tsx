@@ -1,13 +1,11 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent } from "react";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import readXlsxFile from "read-excel-file";
 import { useForm } from "react-hook-form";
 
+import { currentIdxState, uploadDataListState } from "@states/products";
 import stocksAPI from "@api/stocks";
-import {
-  ERROR_MESSAGE,
-  PRODUCT_LIST_INFO,
-  PRODUCT_LIST_THEADS,
-} from "@constants/products";
+import { ERROR_MESSAGE, PRODUCT_LIST_INFO } from "@constants/products";
 import { ProductType } from "@typings/products";
 
 interface MapType {
@@ -15,7 +13,9 @@ interface MapType {
 }
 
 const useProductUpload = () => {
-  const [dataList, setDataList] = useState<ProductType[]>([]);
+  const [dataList, setDataList] = useRecoilState(uploadDataListState);
+  const [currentIdx, setCurrentIdx] = useRecoilState<number>(currentIdxState);
+  const resetCurrentIdx = useResetRecoilState(currentIdxState);
   const { register, reset, handleSubmit } = useForm<ProductType>({
     defaultValues: {
       productCode: "",
@@ -27,7 +27,6 @@ const useProductUpload = () => {
       quantity: "",
     },
   });
-  const currentIdx = useRef<number>(1);
 
   const onValid = (data: ProductType) => addData(data);
 
@@ -39,12 +38,13 @@ const useProductUpload = () => {
         prev && [
           ...prev,
           {
-            idx: currentIdx.current++,
+            idx: currentIdx,
             ...rest,
           },
         ]
     );
 
+    setCurrentIdx((prev) => prev + 1);
     reset();
   };
 
@@ -54,7 +54,7 @@ const useProductUpload = () => {
     const result = await stocksAPI.addStocks(data);
     if (result && result.ok) {
       setDataList([]);
-      currentIdx.current = 1;
+      resetCurrentIdx();
     }
   };
 
@@ -70,10 +70,11 @@ const useProductUpload = () => {
     ProductInfoEntries.map(([key, value]) => (map[value] = key));
 
     const { rows } = await readXlsxFile<ProductType>(fileData, { map });
-    const indexedRows = rows.map(({ idx, ...rest }) => ({
-      idx: currentIdx.current++,
+    const indexedRows = rows.map(({ idx, ...rest }, i) => ({
+      idx: currentIdx + i,
       ...rest,
     }));
+    setCurrentIdx((prev) => prev + rows.length);
 
     setDataList((prev) => prev && [...prev, ...indexedRows]);
 
@@ -81,7 +82,7 @@ const useProductUpload = () => {
   };
 
   return {
-    currentIdx: currentIdx.current,
+    currentIdx,
     dataList,
     setDataList,
     register,
