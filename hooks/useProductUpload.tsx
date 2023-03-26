@@ -1,11 +1,16 @@
 import { ChangeEvent } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
+import { useMutation } from "@tanstack/react-query";
 import readXlsxFile from "read-excel-file";
 import { useForm } from "react-hook-form";
 
-import { currentIdxState, uploadDataListState } from "@states/products";
 import stocksAPI from "@api/stocks";
-import { ERROR_MESSAGE, PRODUCT_LIST_INFO } from "@constants/products";
+import { currentIdxState, uploadDataListState } from "@states/products";
+import {
+  ERROR_MESSAGE,
+  PRODUCT_LIST_INFO,
+  SUCCESS_MESSAGE,
+} from "@constants/products";
 import { ProductType } from "@typings/products";
 
 interface MapType {
@@ -27,6 +32,23 @@ const useProductUpload = () => {
       quantity: "",
     },
   });
+  const { mutate } = useMutation(
+    (data: ProductType[]) => stocksAPI.addStocks(data),
+    {
+      onSuccess: ({ status }) => {
+        switch (status) {
+          case 200:
+            setDataList([]);
+            resetCurrentIdx();
+            alert(SUCCESS_MESSAGE.UPLOAD);
+            break;
+        }
+      },
+      onError: () => {
+        alert(ERROR_MESSAGE.UPLOAD);
+      },
+    }
+  );
 
   const onValid = (data: ProductType) => addData(data);
 
@@ -51,11 +73,7 @@ const useProductUpload = () => {
   const uploadDataList = async (data: ProductType[]) => {
     if (!data.length) return alert(ERROR_MESSAGE.NULL_DATA);
 
-    const result = await stocksAPI.addStocks(data);
-    if (result && result.ok) {
-      setDataList([]);
-      resetCurrentIdx();
-    }
+    mutate(data);
   };
 
   const addExcelFileData = async ({
