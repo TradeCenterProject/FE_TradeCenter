@@ -47,7 +47,6 @@ const Table = <T extends ProductType>({
       ? setIsCheckedAll(true)
       : setIsCheckedAll(false);
     setCheckedIds(newSet);
-    resetCheckedIds();
   };
 
   const onDeleteSelectedRows = () => {
@@ -57,6 +56,7 @@ const Table = <T extends ProductType>({
     });
 
     setDataList(newDataList);
+    resetCheckedIds();
   };
 
   const onUploadSelectedRows = () => {
