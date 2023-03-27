@@ -7,6 +7,9 @@ const stocksAPI = {
   addStocks: async (dataList: ProductType[]) => {
     return await api.post(`${url}`, dataList);
   },
+  getStockLists: async () => {
+    return await api.get(`${url}`);
+  },
 };
 
 export default stocksAPI;

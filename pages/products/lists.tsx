@@ -1,8 +1,7 @@
 import Button from "components/common/Button";
-import Table from "@components/common/Table";
 import Layout from "@components/layout";
 import SearchBox from "@components/products/SearchBox";
-import { PRODUCT_LIST_THEADS } from "@constants/products";
+import ProductListTable from "@components/products/lists/ProductListTable";
 
 const ProductListPage = () => {
   return (
@@ -13,7 +12,7 @@ const ProductListPage = () => {
           <Button value="엑셀" color="green" />
         </div>
         <div>
-          <Table thead={PRODUCT_LIST_THEADS} />
+          <ProductListTable />
         </div>
       </div>
     </Layout>

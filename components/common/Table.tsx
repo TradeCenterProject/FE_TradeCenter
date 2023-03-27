@@ -8,8 +8,8 @@ interface TableProps<T> {
   uploadable?: boolean;
   checkable?: boolean;
   thead: string[];
-  setDataList: Dispatch<SetStateAction<T[]>>;
-  handleUpload: (data: T[]) => void;
+  setDataList?: Dispatch<SetStateAction<T[]>>;
+  handleUpload?: (data: T[]) => void;
 }
 
 const Table = <T extends ProductType>({
@@ -50,6 +50,8 @@ const Table = <T extends ProductType>({
   };
 
   const onDeleteSelectedRows = () => {
+    if (!setDataList) return;
+
     const newDataList = dataList.filter(({ idx }) => {
       if (!idx) return;
       return checkedIds.has(idx) ? false : true;
@@ -60,6 +62,8 @@ const Table = <T extends ProductType>({
   };
 
   const onUploadSelectedRows = () => {
+    if (!handleUpload) return;
+
     const newDataList = dataList.filter(({ idx }) => {
       if (!idx) return;
       return checkedIds.has(idx) ? true : false;
@@ -119,6 +123,7 @@ const Table = <T extends ProductType>({
                   />
                 </td>
               )}
+              {!row.idx && <td key={i}>{i + 1}</td>}
               {Object.values(row).map((data, i) => (
                 <td key={i}>{isNaN(data) ? data : formattedNumber(data)}</td>
               ))}
