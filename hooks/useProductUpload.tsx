@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import readXlsxFile from "read-excel-file";
 import { useForm } from "react-hook-form";
 
@@ -17,6 +17,8 @@ interface MapType {
   [key: string]: string;
 }
 
+const PRODUCT_QUERY_KEY = "products";
+
 const useProductUpload = () => {
   const [dataList, setDataList] = useRecoilState(uploadDataListState);
   const [currentIdx, setCurrentIdx] = useRecoilState<number>(currentIdxState);
@@ -32,9 +34,18 @@ const useProductUpload = () => {
       quantity: "",
     },
   });
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(
     (data: ProductType[]) => stocksAPI.addStocks(data),
     {
+      onMutate: (data) => {
+        const oldData = queryClient.getQueriesData([PRODUCT_QUERY_KEY]);
+
+        queryClient.cancelQueries([PRODUCT_QUERY_KEY]);
+        queryClient.setQueryData([PRODUCT_QUERY_KEY], [...oldData, data]);
+
+        return () => queryClient.setQueryData([PRODUCT_QUERY_KEY], oldData);
+      },
       onSuccess: ({ status }) => {
         switch (status) {
           case 200:
