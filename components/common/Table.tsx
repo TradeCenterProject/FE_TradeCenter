@@ -67,6 +67,7 @@ const Table = <T extends ProductType>({
 
     handleUpload(newDataList);
     resetCheckedIds();
+    setIsCheckedAll(false);
   };
 
   return (
